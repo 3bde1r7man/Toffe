@@ -19,6 +19,8 @@ public class Cart {
             conn = DriverManager.getConnection("jdbc:sqlite:db.sqlite3");
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT cartId FROM Cart WHERE owner = " + owner.userName);
+            rs.close();
+            stmt.close();
             cartID = rs.getInt("cartId");
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -42,8 +44,12 @@ public class Cart {
                 int quantity = rs.getInt("quantityOrdered");
                 System.out.println("Item Name: " + itemName + " | Quantity: " + quantity +" | Price Per Item: "+ price +" | Total Price: " + totalprice);
                 totalPrice += totalprice;
+                rs2.close();
             }
             System.out.println("total Price for this Cart: " + totalPrice);
+            rs.close();
+            stmt.close();
+            stmt2.close();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
@@ -62,6 +68,9 @@ public class Cart {
             pstmt.setDouble(4, price);
             pstmt.setDouble(5, price * quantity);
             pstmt.executeUpdate();
+            rs.close();
+            stmt.close();
+            pstmt.close();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
@@ -79,6 +88,9 @@ public class Cart {
             pstmt.setInt(3, id);
             pstmt.setInt(4, cartID);
             pstmt.executeUpdate();
+            rs.close();
+            stmt.close();
+            pstmt.close();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
@@ -90,6 +102,7 @@ public class Cart {
             pstmt.setInt(1, cartID);
             pstmt.setInt(2, id);
             pstmt.executeUpdate();
+            pstmt.close();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
