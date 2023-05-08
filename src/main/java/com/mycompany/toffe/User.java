@@ -10,12 +10,6 @@ package com.mycompany.toffe;
  *
  * @author ABDO
  */
-<<<<<<< HEAD
-public class User {
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
-    }
-=======
 
 public abstract class User {
     public Boolean login(String userName, String password){
@@ -46,5 +40,4 @@ public abstract class User {
         
     }
 
->>>>>>> 3f455ddb260970514f9a94137f092caeeaab2068
 }

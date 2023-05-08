@@ -1,6 +1,7 @@
 
 
-//package com.mycompany.toffe;
+
+package com.mycompany.toffe;
 
 import java.sql.DriverManager;
 
