@@ -4,12 +4,12 @@ import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
 
-public class EmailSerivce {
+public class EmailService {
     String senderEmail;
     String senderPassword;
     String message;
 
-    public EmailSerivce() {
+    public EmailService() {
         senderEmail = "ahanfybekheet@gmail.com";
         senderPassword = "kaqmzbotmsagmhxt";
         message = "This is email from toffe to verifing your email address copy this code and write it in the application.\nthe code is: ";

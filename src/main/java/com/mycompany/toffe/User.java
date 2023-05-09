@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.util.Scanner;
 import java.util.Random;
-import com.mycompany.toffe.EmailSerivce;
 import javax.mail.MessagingException;
 
 
@@ -44,7 +43,7 @@ public abstract class User {
                 if (isStrongPassword(password)) { // check if the password meets the strength requirements
                     System.out.println("sending email to " + email + "...");
                     int otp = createOTP(); // generate a random one-time password
-                    EmailSerivce emailService = new EmailSerivce();
+                    EmailService emailService = new EmailService();
                     try {
                         // send an email to the user containing the OTP
                         emailService.sendEmail(email,String.valueOf(otp));
