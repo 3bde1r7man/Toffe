@@ -16,7 +16,7 @@ import javax.mail.MessagingException;
  * @author ABDO
  */
 
-public abstract class User {
+public class User {
     //attrs
     Connection conn;
 
@@ -31,67 +31,74 @@ public abstract class User {
         
     }
     
-    public Boolean register(String userName, String email, String password, String address) {
+    public boolean register(String userName, String email, String password, String address) {
+        // Validate input parameters
+        if (userName == null || userName.isEmpty() || email == null || email.isEmpty() || password == null || password.isEmpty()) {
+            System.out.println("Invalid input parameters");
+            return false;
+        }
+
         try {
-            // create a statement to execute SQL queries on the database connection
-            Statement stmt = conn.createStatement();
-    
-            // check if the username or email already exists in the LoggedInUser table
-            ResultSet rs = stmt.executeQuery("SELECT * FROM LoggedInUser WHERE username = " + userName + "or email = " + email);
-    
-            if (!rs.next()) { // if the result set is empty, the username or email is not in use
-                if (isStrongPassword(password)) { // check if the password meets the strength requirements
-                    System.out.println("sending email to " + email + "...");
-                    int otp = createOTP(); // generate a random one-time password
-                    EmailService emailService = new EmailService();
-                    try {
-                        // send an email to the user containing the OTP
-                        emailService.sendEmail(email,String.valueOf(otp));
-                    } catch (MessagingException e) {
-                        System.err.println("Failed to send email: " + e.getMessage());
+            // Use prepared statement to prevent SQL injection
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM LoggedInUser WHERE username = ? or email = ?");
+            pstmt.setString(1, userName);
+            pstmt.setString(2, email);
+
+            // Use try-with-resources to automatically close resources
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (!rs.next()) {
+                    if (isStrongPassword(password)) {
+                        System.out.println("Sending email to " + email + "...");
+                        int otp = createOTP();
+                        EmailService emailService = new EmailService();
+
+                        // Use try-catch to handle exceptions when sending email
+                        try {
+                            emailService.sendEmail(email, String.valueOf(otp));
+                        } catch (MessagingException e) {
+                            System.err.println("Failed to send email: " + e.getMessage());
+                            return false;
+                        }
+                        
+                        System.out.print("Enter OTP Code: ");
+                        Scanner scanner = new Scanner(System.in);
+
+                        int i = 1;
+                        int userIn = scanner.nextInt();
+                        while (i <= 3) {
+                            if (userIn == otp) {
+                                // Use prepared statement to prevent SQL injection
+                                pstmt = conn.prepareStatement("INSERT INTO LoggedInUser VALUES(?, ?, ?, 0,?)");
+                                pstmt.setString(1, userName);
+                                pstmt.setString(2, email);
+                                pstmt.setString(3, password);
+                                pstmt.setString(4, address);
+                                pstmt.executeUpdate();
+                                System.out.println("Email created successfully");
+                                scanner.close();
+                                return true;
+                            } else {
+                                System.out.println("The OTP is not correct. You have " + String.valueOf(3 - i) + " chance(s)...");
+                                userIn = scanner.nextInt();
+                            }
+                            i++;
+                        }
+                        System.out.println("You have tried 3 times. Please try again later!");
+                        scanner.close();
+                        return false;
+                    } else {
+                        System.out.println("Password isn't strong enough!");
                         return false;
                     }
-    
-                    Scanner scanner = new Scanner(System.in);
-                    int i = 1;
-                    int userIn = scanner.nextInt();
-    
-                    // prompt the user to enter the OTP and repeat for up to 3 attempts
-                    while (i <= 3) {
-                        if (userIn == otp) { // if the OTP is correct, insert the new user into the LoggedInUser table
-                            rs = stmt.executeQuery("insert into LoggedInUser Values(" + userName + "," + email + ","
-                            + password + "," + "0);");
-                            System.out.println("email created successfully");
-                            scanner.close();
-                            rs.close();
-                            stmt.close();
-                            return true;
-                        } else {
-                            System.out.println("the otp is not correct you have " + String.valueOf(3 - i) + "chance!!..");
-                            userIn = scanner.nextInt(); // prompt the user to enter the OTP again
-                        }
-                        i++;
-                    }
-    
-                    // if the user fails to enter the correct OTP after 3 attempts, return false
-                    System.out.println("you tried 3 times try again later!..");
-                    scanner.close();
-                    rs.close();
-                    stmt.close();
-                    return false;
-                } else { // if the password is not strong enough, return false
-                    System.out.println("Password Isn't Strong Enough!!");
+                } else {
+                    System.out.println("Username or email already in use!");
                     return false;
                 }
-            } else { // if the username or email is already in use, return false
-                System.out.println("Username Or Email Already in use!..");
-                return false;
             }
-        } catch (SQLException e) { // if an SQL exception occurs, print the error message and return false
-            System.err.println(e.getMessage());
+        } catch (SQLException e) {
+            System.err.println("Failed to execute SQL query: " + e.getMessage());
+            return false;
         }
-        // if execution reaches this point, return false by default
-        return false;
     }
     
 

@@ -7,12 +7,12 @@ import javax.mail.internet.*;
 public class EmailService {
     String senderEmail;
     String senderPassword;
-    String message;
+    String emailBody;
 
     public EmailService() {
         senderEmail = "ahanfybekheet@gmail.com";
         senderPassword = "kaqmzbotmsagmhxt";
-        message = "This is email from toffe to verifing your email address copy this code and write it in the application.\nthe code is: ";
+        emailBody = "This is email from toffe to verifing your email address copy this code and write it in the application.\nthe code is: ";
     }
 
     public void sendEmail(String recipientEmail, String code) throws MessagingException {
@@ -40,7 +40,7 @@ public class EmailService {
 
         // Set the subject and message body
         message.setSubject("Toffe verifing email system");
-        message.setText(message+code);
+        message.setText(emailBody+code);
 
         // Send the message
         Transport.send(message);
