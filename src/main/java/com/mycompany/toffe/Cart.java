@@ -11,7 +11,7 @@ public class Cart {
     LoggedInUser owner;
     Connection conn;
     int cartID;
-    Vector<String> cartItemIds;
+    Vector<Integer> cartItemIds;
     //constructor
     public Cart(LoggedInUser loggedUser){
         owner = loggedUser;
@@ -39,7 +39,7 @@ public class Cart {
             Statement stmt2 = conn.createStatement();
             
             while (rs.next()) {
-                String itemID = rs.getString("itemId");
+                int itemID = rs.getInt("itemId");
                 cartItemIds.add(itemID);
                 ResultSet rs2 = stmt2.executeQuery("SELECT name FROM Item WHERE itemId = " + itemID);
                 String itemName = rs2.getString("name");
@@ -58,8 +58,32 @@ public class Cart {
             System.err.println(e.getMessage());
         }
         Scanner scanner = new Scanner(System.in);
-        System.out.println("choose item to edit or "+  +" : ");
-
+        int choose2,choose;
+        while(true){
+            System.out.println("choose item to edit or "+ count +" to Exit Editing : ");
+            choose  = scanner.nextInt();
+            if(choose > 0 && choose < count + 1){
+                break;
+            }
+        }
+        if(choose == count){
+            return;
+        }
+        while(true){
+            System.out.println("1- Change Item Quantity\n2- Delete Item from Cart\n--> ");
+            choose2 = scanner.nextInt();
+            if(choose2 == 1 || choose2 == 2){
+                break;
+            }
+        }
+        if(choose2 == 1){
+            System.out.println("Please enter the new quantity: ");
+            choose2 = scanner.nextInt();
+            updateItemQuantity(cartItemIds.get(choose- 1), choose2);
+        }
+        else {
+            deleteItemFromCart(cartItemIds.get(choose - 1));
+        }
     }
 
     public void addItemToCart(int id, int quantity){
