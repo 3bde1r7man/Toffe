@@ -2,6 +2,8 @@ package com.mycompany.toffe;
 
 
 import java.sql.*;
+import java.util.Vector;
+import java.util.Scanner;
 
 public class Cart {
     //attributes
@@ -9,7 +11,7 @@ public class Cart {
     LoggedInUser owner;
     Connection conn;
     int cartID;
-
+    Vector<String> cartItemIds;
     //constructor
     public Cart(LoggedInUser loggedUser){
         owner = loggedUser;
@@ -30,6 +32,7 @@ public class Cart {
     
     //Methods
     public void viewCart(){
+        int count = 1;
         try {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM CartItems WHERE cartId = " + cartID);
@@ -37,12 +40,13 @@ public class Cart {
             
             while (rs.next()) {
                 String itemID = rs.getString("itemId");
+                cartItemIds.add(itemID);
                 ResultSet rs2 = stmt2.executeQuery("SELECT name FROM Item WHERE itemId = " + itemID);
                 String itemName = rs2.getString("name");
                 double price = rs.getDouble("pricePerItem");
                 double totalprice = rs.getDouble("totalPrice");
                 int quantity = rs.getInt("quantityOrdered");
-                System.out.println("Item Name: " + itemName + " | Quantity: " + quantity +" | Price Per Item: "+ price +" | Total Price: " + totalprice);
+                System.out.println((count++) + "Item Name: " + itemName + " | Quantity: " + quantity +" | Price Per Item: "+ price +" | Total Price: " + totalprice);
                 totalPrice += totalprice;
                 rs2.close();
             }
@@ -53,6 +57,8 @@ public class Cart {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("choose item to edit or "+  +" : ");
 
     }
 
@@ -78,22 +84,28 @@ public class Cart {
     }
 
     public void updateItemQuantity(int id, int newQuantity){
-        try {
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT price FROM item WHERE itemId = " + id);
-            double price = rs.getDouble("price");
-            PreparedStatement pstmt = conn.prepareStatement("UPDATE CartItems SET quantityOrdered=? , totalPrice=?  WHERE itemId=? AND cartId=?");
-            pstmt.setInt(1, newQuantity);
-            pstmt.setDouble(2, price * newQuantity);
-            pstmt.setInt(3, id);
-            pstmt.setInt(4, cartID);
-            pstmt.executeUpdate();
-            rs.close();
-            stmt.close();
-            pstmt.close();
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
+        if(newQuantity != 0){
+            try {
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT price FROM item WHERE itemId = " + id);
+                double price = rs.getDouble("price");
+                PreparedStatement pstmt = conn.prepareStatement("UPDATE CartItems SET quantityOrdered=? , totalPrice=?  WHERE itemId=? AND cartId=?");
+                pstmt.setInt(1, newQuantity);
+                pstmt.setDouble(2, price * newQuantity);
+                pstmt.setInt(3, id);
+                pstmt.setInt(4, cartID);
+                pstmt.executeUpdate();
+                rs.close();
+                stmt.close();
+                pstmt.close();
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
         }
+        else{
+            deleteItemFromCart(id);
+        }
+        
     }
 
     public void deleteItemFromCart(int id){

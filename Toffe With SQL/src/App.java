@@ -6,7 +6,7 @@ import java.sql.*;
 public class App {
     public static void main(String[] args) throws Exception {
         //System.out.println("Hello, World!");
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:/D:\\SQLite\\sqlite-tools-win32-x86-3410200\\usersdb.db");
+        Connection connection = DriverManager.getConnection("sqlite:../usersdb.db");
         String sql = "SELECT * FROM Items";
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);

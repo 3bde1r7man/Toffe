@@ -157,22 +157,6 @@ public class User {
         return false;
     }    
 
-    public Item searchForItem(String Query){
-        return null;
-    }
-
-    public Category viewCategories(){
-        return null;
-    }
-
-    public Item viewCategoryItems(){
-        return null;
-    }
-
-    public Item viewItem(){
-        return null;
-    }
-
     public int createOTP() {
         Random rand = new Random();
         int randomNumber = rand.nextInt(900000) + 100000; // generates a random number between 100000 and 999999
