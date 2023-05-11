@@ -31,20 +31,34 @@ public class User {
         
     }
     
-    public boolean register(String userName, String email, String password, String address) {
-        // Validate input parameters
-        if (userName == null || userName.isEmpty() || email == null || email.isEmpty() || password == null || password.isEmpty()) {
+    public boolean register() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter username: ");
+        String userName = scanner.nextLine();
+    
+        System.out.print("Enter email: ");
+        String email = scanner.nextLine();
+    
+        System.out.print("Enter password: ");
+        String password = scanner.nextLine();
+    
+        System.out.print("Enter address: ");
+        String address = scanner.nextLine();
+    
+        if (userName.isEmpty() || email.isEmpty() || password.isEmpty() || address.isEmpty() ){
             System.out.println("Invalid input parameters");
+            scanner.close();
             return false;
         }
 
         try {
-            // Use prepared statement to prevent SQL injection
+            // Using prepared statement to prevent SQL injection
             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM LoggedInUser WHERE username = ? or email = ?");
             pstmt.setString(1, userName);
             pstmt.setString(2, email);
 
-            // Use try-with-resources to automatically close resources
+            // Using try-with-resources to automatically close resources
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (!rs.next()) {
                     if (isStrongPassword(password)) {
@@ -61,8 +75,6 @@ public class User {
                         }
                         
                         System.out.print("Enter OTP Code: ");
-                        Scanner scanner = new Scanner(System.in);
-
                         int i = 1;
                         int userIn = scanner.nextInt();
                         while (i <= 3) {
@@ -97,6 +109,7 @@ public class User {
             }
         } catch (SQLException e) {
             System.err.println("Failed to execute SQL query: " + e.getMessage());
+            scanner.close();
             return false;
         }
     }
@@ -111,7 +124,17 @@ public class User {
         return matcher.matches();
     }
     
-    public Boolean login(String username, String password) {
+    public Boolean login() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter username: ");
+        String username = scanner.nextLine();
+    
+        System.out.print("Enter password: ");
+        String password = scanner.nextLine();
+        
+        scanner.close();
+        
         try {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM LoggedInUser WHERE username = '" + username + "' AND password = '" + password + "'");
