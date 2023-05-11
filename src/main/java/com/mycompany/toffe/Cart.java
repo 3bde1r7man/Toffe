@@ -62,7 +62,8 @@ public class Cart {
         while(true){
             System.out.println("choose item to edit or "+ count +" to Exit Editing : ");
             choose  = scanner.nextInt();
-            if(choose > 0 && choose < count + 1){
+            if (choose > 0 && choose < count + 1) {
+                scanner.close();
                 break;
             }
         }
