@@ -7,7 +7,7 @@ public class Order {
         this.userName = userName;
     }
     public void saveOrder(String userName, String paymentMethod, String billingAddress, String status){
-        int cartID, orderId;
+        int cartID=0, orderId=0;
         try{
             Connection conn = DriverManager.getConnection("jdbc:sqlite:db.sqlite3");
             Statement stmt = conn.createStatement();
