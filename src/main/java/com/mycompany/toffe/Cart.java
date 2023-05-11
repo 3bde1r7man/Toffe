@@ -21,9 +21,9 @@ public class Cart {
             conn = DriverManager.getConnection("jdbc:sqlite:db.sqlite3");
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT cartId FROM Cart WHERE owner = " + owner.userName);
+            cartID = rs.getInt("cartId");
             rs.close();
             stmt.close();
-            cartID = rs.getInt("cartId");
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
@@ -111,7 +111,7 @@ public class Cart {
         if(newQuantity != 0){
             try {
                 Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT price FROM item WHERE itemId = " + id);
+                ResultSet rs = stmt.executeQuery("SELECT price FROM Item WHERE itemId = " + id);
                 double price = rs.getDouble("price");
                 PreparedStatement pstmt = conn.prepareStatement("UPDATE CartItems SET quantityOrdered=? , totalPrice=?  WHERE itemId=? AND cartId=?");
                 pstmt.setInt(1, newQuantity);
