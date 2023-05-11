@@ -9,6 +9,6 @@ public class Toffe {
         User user = new User();
         user.register();
         user.login();
-        System.out.println("Hello World!");
+        
     }
 }
