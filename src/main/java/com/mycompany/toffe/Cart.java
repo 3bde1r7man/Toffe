@@ -20,7 +20,7 @@ public class Cart {
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection("jdbc:sqlite:db.sqlite3");
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT cartId FROM Cart WHERE owner = " + owner.userName);
+            ResultSet rs = stmt.executeQuery("SELECT cartId FROM Cart WHERE owner = '" + owner.userName+"'");
             cartID = rs.getInt("cartId");
             rs.close();
             stmt.close();
@@ -35,13 +35,13 @@ public class Cart {
         int count = 1;
         try {
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM CartItems WHERE cartId = " + cartID);
+            ResultSet rs = stmt.executeQuery("SELECT * FROM CartItems WHERE cartId = '" + cartID+"'");
             Statement stmt2 = conn.createStatement();
             
             while (rs.next()) {
                 int itemID = rs.getInt("itemId");
                 cartItemIds.add(itemID);
-                ResultSet rs2 = stmt2.executeQuery("SELECT name FROM Item WHERE itemId = " + itemID);
+                ResultSet rs2 = stmt2.executeQuery("SELECT name FROM Item WHERE itemId = '" + itemID+"'");
                 String itemName = rs2.getString("name");
                 double price = rs.getDouble("pricePerItem");
                 double totalprice = rs.getDouble("totalPrice");
@@ -91,7 +91,7 @@ public class Cart {
         try {
             PreparedStatement pstmt = conn.prepareStatement("INSERT INTO CartItems(cartId, itemId, quantityOrdered, pricePerItem, totalPrice) VALUES(?,?,?,?,?)");
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT price FROM item WHERE itemId = " + id);
+            ResultSet rs = stmt.executeQuery("SELECT price FROM item WHERE itemId = '" + id+"'");
             double price = rs.getDouble("price");
             pstmt.setInt(1, cartID);
             pstmt.setInt(2, id);
@@ -112,7 +112,7 @@ public class Cart {
         if(newQuantity != 0){
             try {
                 Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT price FROM Item WHERE itemId = " + id);
+                ResultSet rs = stmt.executeQuery("SELECT price FROM Item WHERE itemId = '" + id+"'");
                 double price = rs.getDouble("price");
                 PreparedStatement pstmt = conn.prepareStatement("UPDATE CartItems SET quantityOrdered=? , totalPrice=?  WHERE itemId=? AND cartId=?");
                 pstmt.setInt(1, newQuantity);
