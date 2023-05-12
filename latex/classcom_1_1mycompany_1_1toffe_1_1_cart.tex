@@ -1,0 +1,88 @@
+\hypertarget{classcom_1_1mycompany_1_1toffe_1_1_cart}{}\doxysection{com.\+mycompany.\+toffe.\+Cart Class Reference}
+\label{classcom_1_1mycompany_1_1toffe_1_1_cart}\index{com.mycompany.toffe.Cart@{com.mycompany.toffe.Cart}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcom_1_1mycompany_1_1toffe_1_1_cart_a2f6209d5c3d2e016b446d4032022fe72}{Cart}} (\mbox{\hyperlink{classcom_1_1mycompany_1_1toffe_1_1_logged_in_user}{Logged\+In\+User}} logged\+User)
+\item 
+void \mbox{\hyperlink{classcom_1_1mycompany_1_1toffe_1_1_cart_af87b787e06e66c4d069f5087a6306f5a}{view\+Cart}} ()
+\item 
+void \mbox{\hyperlink{classcom_1_1mycompany_1_1toffe_1_1_cart_a2806fd8427c1e5902f70420e77a0fe8d}{add\+Item\+To\+Cart}} (int id, int quantity)
+\item 
+void \mbox{\hyperlink{classcom_1_1mycompany_1_1toffe_1_1_cart_a11032aec4f870e3641efd958a7ddcdcf}{update\+Item\+Quantity}} (int id, int new\+Quantity)
+\item 
+void \mbox{\hyperlink{classcom_1_1mycompany_1_1toffe_1_1_cart_ab88a78258dff1489c02518c3334f7451}{delete\+Item\+From\+Cart}} (int id)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classcom_1_1mycompany_1_1toffe_1_1_cart_a2f6209d5c3d2e016b446d4032022fe72}\label{classcom_1_1mycompany_1_1toffe_1_1_cart_a2f6209d5c3d2e016b446d4032022fe72}} 
+\index{com.mycompany.toffe.Cart@{com.mycompany.toffe.Cart}!Cart@{Cart}}
+\index{Cart@{Cart}!com.mycompany.toffe.Cart@{com.mycompany.toffe.Cart}}
+\doxysubsubsection{\texorpdfstring{Cart()}{Cart()}}
+{\footnotesize\ttfamily com.\+mycompany.\+toffe.\+Cart.\+Cart (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcom_1_1mycompany_1_1toffe_1_1_logged_in_user}{Logged\+In\+User}}}]{logged\+User }\end{DoxyParamCaption})}
+
+Constructs a new Cart object with the given Logged\+In\+User as the owner. Initializes the owner and total\+Price variables.
+
+
+\begin{DoxyParams}{Parameters}
+{\em logged\+User} & The Logged\+In\+User object that owns the cart. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcom_1_1mycompany_1_1toffe_1_1_cart_a2806fd8427c1e5902f70420e77a0fe8d}\label{classcom_1_1mycompany_1_1toffe_1_1_cart_a2806fd8427c1e5902f70420e77a0fe8d}} 
+\index{com.mycompany.toffe.Cart@{com.mycompany.toffe.Cart}!addItemToCart@{addItemToCart}}
+\index{addItemToCart@{addItemToCart}!com.mycompany.toffe.Cart@{com.mycompany.toffe.Cart}}
+\doxysubsubsection{\texorpdfstring{addItemToCart()}{addItemToCart()}}
+{\footnotesize\ttfamily void com.\+mycompany.\+toffe.\+Cart.\+add\+Item\+To\+Cart (\begin{DoxyParamCaption}\item[{int}]{id,  }\item[{int}]{quantity }\end{DoxyParamCaption})}
+
+Adds an item to the cart with the given item ID and quantity.
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The ID of the item to be added to the cart. \\
+\hline
+{\em quantity} & The quantity of the item to be added to the cart. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classcom_1_1mycompany_1_1toffe_1_1_cart_ab88a78258dff1489c02518c3334f7451}\label{classcom_1_1mycompany_1_1toffe_1_1_cart_ab88a78258dff1489c02518c3334f7451}} 
+\index{com.mycompany.toffe.Cart@{com.mycompany.toffe.Cart}!deleteItemFromCart@{deleteItemFromCart}}
+\index{deleteItemFromCart@{deleteItemFromCart}!com.mycompany.toffe.Cart@{com.mycompany.toffe.Cart}}
+\doxysubsubsection{\texorpdfstring{deleteItemFromCart()}{deleteItemFromCart()}}
+{\footnotesize\ttfamily void com.\+mycompany.\+toffe.\+Cart.\+delete\+Item\+From\+Cart (\begin{DoxyParamCaption}\item[{int}]{id }\end{DoxyParamCaption})}
+
+Deletes an item from the cart with the given item ID.
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The ID of the item to be deleted from the cart. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classcom_1_1mycompany_1_1toffe_1_1_cart_a11032aec4f870e3641efd958a7ddcdcf}\label{classcom_1_1mycompany_1_1toffe_1_1_cart_a11032aec4f870e3641efd958a7ddcdcf}} 
+\index{com.mycompany.toffe.Cart@{com.mycompany.toffe.Cart}!updateItemQuantity@{updateItemQuantity}}
+\index{updateItemQuantity@{updateItemQuantity}!com.mycompany.toffe.Cart@{com.mycompany.toffe.Cart}}
+\doxysubsubsection{\texorpdfstring{updateItemQuantity()}{updateItemQuantity()}}
+{\footnotesize\ttfamily void com.\+mycompany.\+toffe.\+Cart.\+update\+Item\+Quantity (\begin{DoxyParamCaption}\item[{int}]{id,  }\item[{int}]{new\+Quantity }\end{DoxyParamCaption})}
+
+Updates the quantity of an item in the cart with the given item ID to the new quantity. If the new quantity is zero, the item is removed from the cart.
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The ID of the item to be updated. \\
+\hline
+{\em new\+Quantity} & The new quantity of the item. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classcom_1_1mycompany_1_1toffe_1_1_cart_af87b787e06e66c4d069f5087a6306f5a}\label{classcom_1_1mycompany_1_1toffe_1_1_cart_af87b787e06e66c4d069f5087a6306f5a}} 
+\index{com.mycompany.toffe.Cart@{com.mycompany.toffe.Cart}!viewCart@{viewCart}}
+\index{viewCart@{viewCart}!com.mycompany.toffe.Cart@{com.mycompany.toffe.Cart}}
+\doxysubsubsection{\texorpdfstring{viewCart()}{viewCart()}}
+{\footnotesize\ttfamily void com.\+mycompany.\+toffe.\+Cart.\+view\+Cart (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Prints the contents of the user\textquotesingle{}s cart, and allows the user to select an item to edit or delete. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Cart.\+java\end{DoxyCompactItemize}

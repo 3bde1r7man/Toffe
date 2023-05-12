@@ -1,0 +1,75 @@
+\hypertarget{classcom_1_1mycompany_1_1toffe_1_1_order}{}\doxysection{com.\+mycompany.\+toffe.\+Order Class Reference}
+\label{classcom_1_1mycompany_1_1toffe_1_1_order}\index{com.mycompany.toffe.Order@{com.mycompany.toffe.Order}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcom_1_1mycompany_1_1toffe_1_1_order_ac8ba5e0e400a125ef7cc391d879c1b42}{Order}} (String user\+Name)
+\item 
+void \mbox{\hyperlink{classcom_1_1mycompany_1_1toffe_1_1_order_a274f1ff8741ded6aae633f0bbef2fd09}{save\+Order}} (String user\+Name, String payment\+Method, String billing\+Address, String status)
+\item 
+void \mbox{\hyperlink{classcom_1_1mycompany_1_1toffe_1_1_order_ad22d564e92dd9fdf2002a39623369ae8}{view\+Order}} ()
+\item 
+void \mbox{\hyperlink{classcom_1_1mycompany_1_1toffe_1_1_order_a25512164000604d83efa45b438707aef}{change\+Order\+Status}} (String new\+Status)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classcom_1_1mycompany_1_1toffe_1_1_order_ac8ba5e0e400a125ef7cc391d879c1b42}\label{classcom_1_1mycompany_1_1toffe_1_1_order_ac8ba5e0e400a125ef7cc391d879c1b42}} 
+\index{com.mycompany.toffe.Order@{com.mycompany.toffe.Order}!Order@{Order}}
+\index{Order@{Order}!com.mycompany.toffe.Order@{com.mycompany.toffe.Order}}
+\doxysubsubsection{\texorpdfstring{Order()}{Order()}}
+{\footnotesize\ttfamily com.\+mycompany.\+toffe.\+Order.\+Order (\begin{DoxyParamCaption}\item[{String}]{user\+Name }\end{DoxyParamCaption})}
+
+Constructs a new Order object with the given user name.
+
+
+\begin{DoxyParams}{Parameters}
+{\em user\+Name} & the name of the user placing the order \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcom_1_1mycompany_1_1toffe_1_1_order_a25512164000604d83efa45b438707aef}\label{classcom_1_1mycompany_1_1toffe_1_1_order_a25512164000604d83efa45b438707aef}} 
+\index{com.mycompany.toffe.Order@{com.mycompany.toffe.Order}!changeOrderStatus@{changeOrderStatus}}
+\index{changeOrderStatus@{changeOrderStatus}!com.mycompany.toffe.Order@{com.mycompany.toffe.Order}}
+\doxysubsubsection{\texorpdfstring{changeOrderStatus()}{changeOrderStatus()}}
+{\footnotesize\ttfamily void com.\+mycompany.\+toffe.\+Order.\+change\+Order\+Status (\begin{DoxyParamCaption}\item[{String}]{new\+Status }\end{DoxyParamCaption})}
+
+Changes the status of the most recent order for the current user.
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Status} & the new status to set for the order \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classcom_1_1mycompany_1_1toffe_1_1_order_a274f1ff8741ded6aae633f0bbef2fd09}\label{classcom_1_1mycompany_1_1toffe_1_1_order_a274f1ff8741ded6aae633f0bbef2fd09}} 
+\index{com.mycompany.toffe.Order@{com.mycompany.toffe.Order}!saveOrder@{saveOrder}}
+\index{saveOrder@{saveOrder}!com.mycompany.toffe.Order@{com.mycompany.toffe.Order}}
+\doxysubsubsection{\texorpdfstring{saveOrder()}{saveOrder()}}
+{\footnotesize\ttfamily void com.\+mycompany.\+toffe.\+Order.\+save\+Order (\begin{DoxyParamCaption}\item[{String}]{user\+Name,  }\item[{String}]{payment\+Method,  }\item[{String}]{billing\+Address,  }\item[{String}]{status }\end{DoxyParamCaption})}
+
+Saves an order to the database with the given information.
+
+
+\begin{DoxyParams}{Parameters}
+{\em user\+Name} & the name of the user placing the order \\
+\hline
+{\em payment\+Method} & the payment method used for the order \\
+\hline
+{\em billing\+Address} & the billing address used for the order \\
+\hline
+{\em status} & the status of the order \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classcom_1_1mycompany_1_1toffe_1_1_order_ad22d564e92dd9fdf2002a39623369ae8}\label{classcom_1_1mycompany_1_1toffe_1_1_order_ad22d564e92dd9fdf2002a39623369ae8}} 
+\index{com.mycompany.toffe.Order@{com.mycompany.toffe.Order}!viewOrder@{viewOrder}}
+\index{viewOrder@{viewOrder}!com.mycompany.toffe.Order@{com.mycompany.toffe.Order}}
+\doxysubsubsection{\texorpdfstring{viewOrder()}{viewOrder()}}
+{\footnotesize\ttfamily void com.\+mycompany.\+toffe.\+Order.\+view\+Order (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Retrieves and displays all orders for a particular user from the database. It queries the \textquotesingle{}Order\textquotesingle{} table to get the order ids and then queries the \textquotesingle{}Order\+Items\textquotesingle{} table to get the details of the items in each order. It then joins the \textquotesingle{}Item\textquotesingle{} table to get the name of each item and displays the order details to the console. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Order.\+java\end{DoxyCompactItemize}
