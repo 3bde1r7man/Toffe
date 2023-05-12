@@ -48,7 +48,6 @@ public class User {
     
         if (userName.isEmpty() || email.isEmpty() || password.isEmpty() || address.isEmpty() ){
             System.out.println("Invalid input parameters");
-            scanner.close();
             return false;
         }
 
@@ -87,7 +86,7 @@ public class User {
                                 pstmt.setString(4, address);
                                 pstmt.executeUpdate();
                                 System.out.println("Email created successfully");
-                                scanner.close();
+                                
                                 return true;
                             } else {
                                 System.out.println("The OTP is not correct. You have " + String.valueOf(3 - i) + " chance(s)...");
@@ -96,7 +95,7 @@ public class User {
                             i++;
                         }
                         System.out.println("You have tried 3 times. Please try again later!");
-                        scanner.close();
+                        
                         return false;
                     } else {
                         System.out.println("Password isn't strong enough!");
@@ -109,7 +108,7 @@ public class User {
             }
         } catch (SQLException e) {
             System.err.println("Failed to execute SQL query: " + e.getMessage());
-            scanner.close();
+            
             return false;
         }
     }
@@ -133,7 +132,7 @@ public class User {
         System.out.print("Enter password: ");
         String password = scanner.nextLine();
         
-        scanner.close();
+        
         
         try {
             Statement stmt = conn.createStatement();
@@ -143,6 +142,7 @@ public class User {
                 System.out.println("Login successful!");
                 rs.close();
                 stmt.close();
+                Username = username;
                 return true;
             } else {
                 System.out.println("Incorrect username or password.");

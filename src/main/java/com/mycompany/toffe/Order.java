@@ -11,7 +11,7 @@ public class Order {
         try{
             Connection conn = DriverManager.getConnection("jdbc:sqlite:db.sqlite3");
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT cartId FROM Cart WHERE owner = " + userName);
+            ResultSet rs = stmt.executeQuery("SELECT cartId FROM Cart WHERE owner = '" + userName + "'");
             cartID = rs.getInt("cartId");
             rs.close();
             stmt.close();
@@ -22,7 +22,7 @@ public class Order {
         }
         try{
             Connection conn = DriverManager.getConnection("jdbc:sqlite:db.sqlite3");
-            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO Order(owner, paymentMethod, billingAddress, status) VALUES(?,?,?,?)");
+            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO 'Order'(owner, paymentMethod, billingAddress, status) VALUES(?,?,?,?)");
             pstmt.setString(1, userName);
             pstmt.setString(2, paymentMethod);
             pstmt.setString(3, billingAddress);
@@ -34,7 +34,7 @@ public class Order {
         }
         try{
             Connection conn = DriverManager.getConnection("jdbc:sqlite:db.sqlite3");
-            String sql = "SELECT max(orderId) FROM Order WHERE owner = ";
+            String sql = "SELECT max(orderId) FROM 'Order' WHERE owner = ";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql + userName);
             orderId = rs.getInt("orderId");
@@ -47,7 +47,7 @@ public class Order {
         try{
             Connection conn = DriverManager.getConnection("jdbc:sqlite:db.sqlite3");
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM CartItems WHERE cartId = " + cartID);
+            ResultSet rs = stmt.executeQuery("SELECT * FROM CartItems WHERE cartId = '" + cartID + "'");
             int itemID, quantity;
             double price, totalprice;
             
@@ -79,13 +79,13 @@ public class Order {
         try {
             Connection conn = DriverManager.getConnection("jdbc:sqlite:db.sqlite3");
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Order WHERE owner = " + userName);
+            ResultSet rs = stmt.executeQuery("SELECT * FROM 'Order' WHERE owner = '" + userName + "'");
             while (rs.next()) {
                 int orderId = rs.getInt("orderId");
-                ResultSet rs2 = stmt.executeQuery("SELECT * FROM OrderItems WHERE orderId = " + orderId);
+                ResultSet rs2 = stmt.executeQuery("SELECT * FROM OrderItems WHERE orderId = '" + orderId + "'");
                 while (rs2.next()) {
                     int itemID = rs2.getInt("itemId");
-                    ResultSet rs3 = stmt.executeQuery("SELECT name FROM Item WHERE itemId = " + itemID);
+                    ResultSet rs3 = stmt.executeQuery("SELECT name FROM Item WHERE itemId = '" + itemID + "'");
                     String itemName = rs3.getString("name");
                     int quantity = rs2.getInt("quantityOrdered");
                     double price = rs2.getDouble("pricePerItem");
@@ -104,8 +104,8 @@ public class Order {
     }
 
     public void changeOrderStatus(String newStatus) {
-        String sql = "UPDATE Order SET status = ? WHERE order_id = ?";
-        String sql2 = "SELECT max(orderId) FROM Order WHERE owner = ";
+        String sql = "UPDATE 'Order' SET status = ? WHERE order_id = ?";
+        String sql2 = "SELECT max(orderId) FROM 'Order' WHERE owner = ";
 
         try {
             Connection conn = DriverManager.getConnection("jdbc:sqlite:db.sqlite3");

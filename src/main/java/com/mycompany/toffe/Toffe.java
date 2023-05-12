@@ -4,9 +4,9 @@ import java.util.Scanner;
 public class Toffe {
     public static void main(String[] args) throws Exception {
         User user = new User();
-        if(user.register()){
+        
             user.login(); 
-        }
+        
         while(true){
             System.out.println("1-order\n2-view items\n3-view order");
             Scanner myObj = new Scanner(System.in);
