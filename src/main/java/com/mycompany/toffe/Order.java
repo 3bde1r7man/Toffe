@@ -65,6 +65,8 @@ public class Order {
                 pstmt.executeUpdate();
                 pstmt.close();
             }
+            PreparedStatement pstmt = conn.prepareStatement("DELETE FROM CartItems WHERE cartId = ?");
+            pstmt.setInt(1, cartID);
             rs.close();
             stmt.close();
             conn.close();
