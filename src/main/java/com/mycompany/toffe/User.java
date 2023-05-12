@@ -19,7 +19,7 @@ import javax.mail.MessagingException;
 public class User {
     //attrs
     Connection conn;
-
+    String Username;
     //constructor
     public User(){
         try {

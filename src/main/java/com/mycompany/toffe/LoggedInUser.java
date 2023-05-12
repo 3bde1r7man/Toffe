@@ -7,10 +7,11 @@ public class LoggedInUser extends User {
     LoggedInUser(String username){
         userName =  username;
         cart = new Cart(this);
+        orders = new Order(username);
     }
 
     public void viewOrderHistory(){
-        orders.viewOrder(userName);
+        orders.viewOrder();
     }
     public void viewCart(){
         cart.viewCart();

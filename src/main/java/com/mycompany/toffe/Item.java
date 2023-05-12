@@ -1,5 +1,6 @@
 package com.mycompany.toffe;
 import java.sql.*;
+import java.util.Scanner; 
 
 public class Item {
     public void viewItems() {
@@ -23,4 +24,15 @@ public class Item {
             System.err.println(e.getMessage());
         }
     }
+    public void getID(String username){
+        Scanner myObj = new Scanner(System.in);
+        System.out.println("Please enter the itemID : ");
+        int itemid = myObj.nextInt();
+        int quantity = myObj.nextInt();
+        LoggedInUser order = new LoggedInUser(username);
+        order.placeOrder();
+        Cart item = new Cart(order);
+        item.addItemToCart(itemid, quantity);
+    }
+
 }

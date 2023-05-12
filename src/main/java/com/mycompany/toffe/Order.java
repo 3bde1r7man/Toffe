@@ -73,11 +73,11 @@ public class Order {
         }
     }
 
-    public void viewOrder(String name){
+    public void viewOrder(){
         try {
             Connection conn = DriverManager.getConnection("jdbc:sqlite:db.sqlite3");
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Order WHERE owner = " + name);
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Order WHERE owner = " + userName);
             while (rs.next()) {
                 int orderId = rs.getInt("orderId");
                 ResultSet rs2 = stmt.executeQuery("SELECT * FROM OrderItems WHERE orderId = " + orderId);
