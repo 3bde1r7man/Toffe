@@ -20,6 +20,7 @@ public class User {
     //attrs
     Connection conn;
     String Username;
+    boolean loggedIn;
     //constructor
     public User(){
         try {
@@ -28,7 +29,7 @@ public class User {
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-        
+        loggedIn = false;
     }
     
     public boolean register() {
@@ -143,6 +144,7 @@ public class User {
                 rs.close();
                 stmt.close();
                 Username = username;
+                loggedIn = true;
                 return true;
             } else {
                 System.out.println("Incorrect username or password.");
@@ -161,5 +163,13 @@ public class User {
         Random rand = new Random();
         int randomNumber = rand.nextInt(900000) + 100000; // generates a random number between 100000 and 999999
         return randomNumber;
+    }
+
+    public boolean isAuthenticated() {
+        return loggedIn;
+    }
+
+    public String getUsername() {
+        return Username;
     }
 }
