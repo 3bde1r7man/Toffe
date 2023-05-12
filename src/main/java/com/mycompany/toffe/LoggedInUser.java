@@ -21,5 +21,6 @@ public class LoggedInUser extends User {
         System.out.println("Please enter the billing address: ");
         String billingAddress = scanner.nextLine();
         orders.saveOrder(userName, "Cash", billingAddress, "Not Delivered");
+        scanner.close();
     }
 }
