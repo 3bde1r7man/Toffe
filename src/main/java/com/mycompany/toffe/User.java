@@ -1,8 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+/**
+ * The User class represents a user of the Toffee application.
+ * It allows for registration, login, and authentication of users.
+ * It also includes methods for generating and verifying OTPs, and for checking the strength of passwords.
  */
 package com.mycompany.toffe;
+
 import java.sql.*;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -10,19 +12,16 @@ import java.util.Scanner;
 import java.util.Random;
 import javax.mail.MessagingException;
 
-
-/**
- *
- * @author ABDO
- */
-
 public class User {
-    //attrs
+    // Attributes
     Connection conn;
     String Username;
     boolean loggedIn;
-    //constructor
-    public User(){
+
+    /**
+     * Constructor for the User class.
+     */
+    public User() {
         try {
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection("jdbc:sqlite:db.sqlite3");
@@ -31,7 +30,12 @@ public class User {
         }
         loggedIn = false;
     }
-    
+
+    /**
+     * Allows the user to register for a new account.
+     *
+     * @return true if registration is successful, false otherwise.
+     */
     public boolean register() {
         Scanner scanner = new Scanner(System.in);
 
@@ -113,8 +117,13 @@ public class User {
             return false;
         }
     }
-    
 
+    /**
+     * Checks the strength of a given password.
+     *
+     * @param password the password to check.
+     * @return true if the password is strong, false otherwise.
+     */
     public static boolean isStrongPassword(String password) {
         // Password must be at least 8 characters long and contain at least one uppercase letter, 
         // one lowercase letter, one digit, and one special character.
@@ -123,7 +132,12 @@ public class User {
         Matcher matcher = pattern.matcher(password);
         return matcher.matches();
     }
-    
+
+    /**
+     * Allows the user to login to their account.
+     *
+     * @return true if login is successful, false otherwise.
+     */
     public Boolean login() {
         Scanner scanner = new Scanner(System.in);
 
@@ -157,18 +171,33 @@ public class User {
         }
         
         return false;
-    }    
+    }
 
+    /**
+     * Creates a random OTP (one-time password) for the user.
+     *
+     * @return the OTP as an integer.
+     */
     public int createOTP() {
         Random rand = new Random();
         int randomNumber = rand.nextInt(900000) + 100000; // generates a random number between 100000 and 999999
         return randomNumber;
     }
 
+    /**
+     * Checks if the user is currently authenticated.
+     *
+     * @return true if the user is authenticated, false otherwise.
+     */
     public boolean isAuthenticated() {
         return loggedIn;
     }
 
+    /**
+     * Gets the username of the current user.
+     *
+     * @return the username as a String.
+     */
     public String getUsername() {
         return Username;
     }
