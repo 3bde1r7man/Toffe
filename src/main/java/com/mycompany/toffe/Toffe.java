@@ -17,7 +17,7 @@ public class Toffe {
      */
     public static void main(String[] args) throws Exception {
         User user = new User();
-
+        
         while (true) {
             System.out.println("1-Order");
             System.out.println("2-View Items");

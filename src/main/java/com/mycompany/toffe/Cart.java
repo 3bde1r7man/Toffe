@@ -26,7 +26,7 @@ public class Cart {
     public Cart(LoggedInUser loggedUser) {
         owner = loggedUser;
         totalPrice = 0;
-
+        cartItemIds = new Vector<Integer>();
         // Attempts to connect to a SQLite database
         try {
             Class.forName("org.sqlite.JDBC");
@@ -86,12 +86,14 @@ public class Cart {
 
         // Allows the user to select an item to edit or delete
         Scanner scanner = new Scanner(System.in);
-        int choose2,choose;
+        int choose2, choose;
         while(true){
-            System.out.println("choose item to edit or "+ count +" to Exit Editing : ");
+            System.out.println("choose item to edit or -1 to Exit : ");
             choose  = scanner.nextInt();
-            if (choose > 0 && choose < count + 1) {
-                scanner.close();
+            if(choose == -1){
+                return;
+            }
+            if (choose > 0 && choose < count ) {
                 break;
             }
         }
@@ -107,7 +109,7 @@ public class Cart {
         if(choose2 == 1){
             System.out.println("Please enter the new quantity: ");
             choose2 = scanner.nextInt();
-            updateItemQuantity(cartItemIds.get(choose- 1), choose2);
+            updateItemQuantity(cartItemIds.get(choose - 1), choose2);
         }
         else {
             deleteItemFromCart(cartItemIds.get(choose - 1));
@@ -124,7 +126,7 @@ public class Cart {
         try {
             PreparedStatement pstmt = conn.prepareStatement("INSERT INTO CartItems(cartId, itemId, quantityOrdered, pricePerItem, totalPrice) VALUES(?,?,?,?,?)");
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT price FROM item WHERE itemId = '" + id+"'");
+            ResultSet rs = stmt.executeQuery("SELECT price FROM item WHERE itemId = '" + id+ "'");
             double price = rs.getDouble("price");
             
             // Set parameters for the prepared statement and execute it.
